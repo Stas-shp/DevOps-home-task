@@ -30,4 +30,3 @@ RUN chmod +x /entry.sh
 WORKDIR /project
 
 ENTRYPOINT [ "/entry.sh" ]
-#CMD ["/bin/sh", "-c", "sleep infinity"]
