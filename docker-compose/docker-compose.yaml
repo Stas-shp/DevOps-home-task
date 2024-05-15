@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  localstack:
+    container_name: localstack
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      LOCALSTACK_AUTH_TOKEN: ${LOCALSTACK_AUTH_TOKEN:- }
+      SERVICES: lambda,apigateway,iam,logs,ec2
+      DEBUG: 1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      one:
+
+
+  automation-docker:
+    container_name: automation-docker
+    build: .
+    volumes:
+      - "../:/project"
+    depends_on:
+      - localstack
+    networks:
+      one:
+
+
+networks:
+  one:
